@@ -95,14 +95,14 @@ def run_test_harness():
 	it_train = datagen.flow(trainX, trainY, batch_size=64)
 	# fit model
 	steps = int(trainX.shape[0] / 64)
-	history = model.fit_generator(it_train, steps_per_epoch=steps, epochs=400, validation_data=(testX, testY))
+	history = model.fit_generator(it_train, steps_per_epoch=steps, epochs=1, validation_data=(testX, testY))
 	# serialize model to JSON
 	model_json = model.to_json()
-	with open("model.json", "w") as json_file :
+	with open("--model.json", "w") as json_file :
 		json_file.write(model_json)
 		
 	# serialize weights to HDF5
-	model.save_weights("model.h5")
+	model.save_weights("--model.h5")
 	print("Saved model to disk")
 	# evaluate model
 	_, acc = model.evaluate(testX, testY, verbose=0)
